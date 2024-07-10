@@ -9,13 +9,15 @@ app.config['SESSION_TYPE'] = 'filesystem'
 CORS(app,supports_credentials=True)#跨域访问
 
 app.config['MYSQL_HOST'] = 'localhost' # MySQL主机地址
-app.config['MYSQL_USER'] = 'root' # MySQL用户名
+app.config['MYSQL_USER'] = 'gaidatadeal' # MySQL用户名
 app.config['MYSQL_PASSWORD'] = 'root' # MySQL密码
 app.config['MYSQL_DB'] = 'gaidatadeal' # MySQL数据库名
 app.config["SECRET_KEY"]=secrets.token_hex(16)
 
 db=MySQL(app)
 
+#根节点
+url_root='http://jnueca.cn:5000/gaidatadeal'
 #信息提交接口
 url_submit='/gaidatadeal/submit/<int:index>'
 #信息请求接口
@@ -24,9 +26,6 @@ url_load='/gaidatadeal/articles/<int:index>'
 url_get_initial_index='/gaidatadeal/get_initial_index'
 #信息标记
 url_mark_usefuless='/gaidatadeal/mark_not_useful/<int:index>'
-@app.route(url_submit)
-def data_save():
-    return True
 @app.route(url_get_initial_index, methods=['GET'])
 def get_initial_index():
     cur = db.connection.cursor()
