@@ -17,7 +17,7 @@ app.config["SECRET_KEY"]=secrets.token_hex(16)
 db=MySQL(app)
 
 #根节点
-url_root='http://jnueca.cn:5000/gaidatadeal'
+url_root='http://jnueca.cn:5555/gaidatadeal'
 #信息提交接口
 url_submit='/gaidatadeal/submit/<int:index>'
 #信息请求接口
@@ -96,4 +96,4 @@ def submit(index):
     cursor.close()
     return jsonify({'success': True})
 if __name__ == '__main__':
-    app.run(debug=True)
+    app.run(port=5555,debug=True)
