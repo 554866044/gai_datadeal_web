@@ -17,15 +17,15 @@ app.config["SECRET_KEY"]=secrets.token_hex(16)
 db=MySQL(app)
 
 #根节点
-url_root='http://jnueca.cn:5555/gaidatadeal'
+url_root='/gaidatadeal'
 #信息提交接口
-url_submit='/gaidatadeal/submit/<int:index>'
+url_submit=url_root+'/submit/<int:index>'
 #信息请求接口
-url_load='/gaidatadeal/articles/<int:index>'
+url_load=url_root+'/articles/<int:index>'
 #获取初始信息接口
-url_get_initial_index='/gaidatadeal/get_initial_index'
+url_get_initial_index=url_root+'/get_initial_index'
 #信息标记
-url_mark_usefuless='/gaidatadeal/mark_not_useful/<int:index>'
+url_mark_usefuless=url_root+'/mark_not_useful/<int:index>'
 @app.route(url_get_initial_index, methods=['GET'])
 def get_initial_index():
     cur = db.connection.cursor()
@@ -99,4 +99,4 @@ def submit(index):
     cursor.close()
     return jsonify({'success': True})
 if __name__ == '__main__':
-    app.run(host='jnueca',port=5555,debug=True)
+    app.run(host='0.0.0.0',port=5555,debug=True)
