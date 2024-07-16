@@ -97,7 +97,7 @@ const FormPage = () => {
       <div className="embedded-section">
         <h2>数据标注网页</h2>
         <h3>请根据帖子内容完善以下表格信息，点击上/下一篇请求帖子，点击‘该篇参考意义不大’标记信息模糊帖子</h3>
-        <h3>数据库信息数:{total_data}。已标记有效:{usefuldata}。标记无效:{uselessdata}</h3>
+        <h3>数据库信息数:{untreated_num}。已标记有效:{usefuldata_num}。标记无效:{uselessdata_num}</h3>
         <p>因为使用iframe，所以无法登录小红书，复制帖子内容请使用浏览器插件强制复制</p>
         <iframe id="embeddedFrame"  src={note_id ? `https://www.xiaohongshu.com/explore/${note_id}` : ''} width="100%" height="600px"></iframe>
         <ul>
