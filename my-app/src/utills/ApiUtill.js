@@ -1,5 +1,5 @@
 export default class ApiUtill{
-    static url_gai_root='http://jnueca.cn:5555/gaidatadeal'
+    static url_gai_root='http://jnueca.cn/gaidatadeal'
 
     static url_get_initial_index=this.url_gai_root+`/get_initial_index`
     static url_load=this.url_gai_root+'/articles/'
