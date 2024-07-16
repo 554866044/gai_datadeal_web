@@ -6,7 +6,7 @@ import secrets
  
 app = Flask(__name__)
 app.config['SESSION_TYPE'] = 'filesystem'
-CORS(app,supports_credentials=True)#跨域访问
+CORS(app, origins=['http://jnueca.cn'])#跨域访问
 
 app.config['MYSQL_HOST'] = 'localhost' # MySQL主机地址
 app.config['MYSQL_USER'] = 'gaidatadeal' # MySQL用户名
@@ -99,4 +99,4 @@ def submit(index):
     cursor.close()
     return jsonify({'success': True})
 if __name__ == '__main__':
-    app.run(host='127.0.0.1',port=5555,debug=True)
+    app.run(host='0.0.0.0',port=5555,debug=True)
