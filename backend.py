@@ -34,7 +34,7 @@ def get_initial_index():
     row = cur.fetchone()
     cur.close()
     cur = db.connection.cursor()
-    cur.execute('SELECT status, COUNT(*) as count FROM my_table WHERE status IN (0, 1, 2) GROUP BY status;')
+    cur.execute('SELECT status, COUNT(*) as count FROM data WHERE status IN (0, 1, 2) GROUP BY status;')
     num=cur.fetchone()
     cur.close()
     if row:
@@ -99,4 +99,4 @@ def submit(index):
     cursor.close()
     return jsonify({'success': True})
 if __name__ == '__main__':
-    app.run(host='0.0.0.0',port=5555,debug=True)
+    app.run(host='0.0.0.0',port=5555)
