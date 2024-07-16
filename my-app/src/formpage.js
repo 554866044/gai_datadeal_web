@@ -13,12 +13,18 @@ const FormPage = () => {
   });
   const [currentArticleIndex, setCurrentArticleIndex] = useState(0);
   const [note_id,setnoteid] = useState(null)
+  const [untreated_num,settotal_data]=useState(0)
+  const [usefuldata_num,setusefuldata]=useState(0)
+  const [uselessdata_num,setuselessdata]=useState(0)
   useEffect(() => {
     const fetchinfoindex=async ()=>{
         try{
             const result= await HttpUtill.get(ApiUtill.url_get_initial_index)
             setnoteid(result.note_id);
             setCurrentArticleIndex(result.id);
+            settotal_data(result.untreated_num)
+            setusefuldata(result.usefuldata_num)
+            setuselessdata(result.uselessdata_num)
         }catch(error){console.log("拉取初始id失败")}
     }
     fetchinfoindex()
@@ -89,7 +95,10 @@ const FormPage = () => {
   return (
     <div className="container">
       <div className="embedded-section">
-        <h2>网页</h2>
+        <h2>数据标注网页</h2>
+        <h3>请根据帖子内容完善以下表格信息，点击上/下一篇请求帖子，点击‘该篇参考意义不大’标记信息模糊帖子</h3>
+        <h3>数据库信息数:{total_data}。已标记有效:{usefuldata}。标记无效:{uselessdata}</h3>
+        <p>因为使用iframe，所以无法登录小红书，复制帖子内容请使用浏览器插件强制复制</p>
         <iframe id="embeddedFrame"  src={note_id ? `https://www.xiaohongshu.com/explore/${note_id}` : ''} width="100%" height="600px"></iframe>
         <ul>
             <button className='pagebutton' onClick={handlePrevious}>上一篇</button>

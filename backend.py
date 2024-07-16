@@ -33,13 +33,18 @@ def get_initial_index():
     cur.execute('SELECT note_id, id FROM data WHERE status = 0 ORDER BY id ASC LIMIT 1')
     row = cur.fetchone()
     cur.close()
-
+    cur = db.connection.cursor()
+    cur.execute('SELECT status, COUNT(*) as count FROM my_table WHERE status IN (0, 1, 2) GROUP BY status;')
+    num=cur.fetchone()
+    cur.close()
     if row:
         data={
             'note_id':row[0],
-            'id':row[1]
+            'id':row[1],
+            'untreated_num':num[0],
+            'usefuldata_num':num[1],
+            'uselessdata_num':num[2]
         }
-        print(data)
         return jsonify(data)
     else:
         return jsonify({'error': 'No data found'})
@@ -71,7 +76,6 @@ def mark_not_useful(index):
 @app.route(url_submit, methods=['POST'])
 def submit(index):
     data = request.json
-    print(index,data)
     start_point = data.get('startPoint', '')
     end_point = data.get('endPoint', '')
     budget = data.get('budget', '')
@@ -90,10 +94,9 @@ def submit(index):
                    details = %s, 
                    status = 1 
                WHERE id = %s;'''
-    print(query)
     cursor.execute(query,(start_point,end_point,budget,int(people_count),int(city_count),transport_type,details,index))
     db.connection.commit()
     cursor.close()
     return jsonify({'success': True})
 if __name__ == '__main__':
-    app.run(port=5555,debug=True)
+    app.run(host='jnueca',port=5555,debug=True)
